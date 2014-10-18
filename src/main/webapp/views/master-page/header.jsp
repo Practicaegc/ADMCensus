@@ -20,6 +20,13 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv" href="census/create.do"><spring:message code="master.page.census.create" /></a></li>
 			<li><a class="fNiv" href="census/list.do"><spring:message code="master.page.census.list" /></a></li>
+			<li class='has-sub'><a><spring:message code="master.page.api" /></a>
+				<ul>
+					<li><a target="_blank" href="census/json_all.do"><spring:message code="master.page.census.all" /></a></li>
+					<li><a target="_blank" href="census/json_one.do?censusId=1"><spring:message code="master.page.census.one" /></a></li>	
+					
+				</ul>
+			</li>
 		</security:authorize>
 	</ul>
 </div>

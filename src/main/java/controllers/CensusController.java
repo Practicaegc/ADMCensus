@@ -1,3 +1,4 @@
+
 /* CustomerController.java
  *
  * Copyright (C) 2013 Universidad de Sevilla
@@ -11,6 +12,8 @@
 package controllers;
 
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +23,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CensusService;
+import services.UserService;
 
 import domain.Census;
+import domain.User;
 
 @Controller
 @RequestMapping("/census")
@@ -33,6 +39,9 @@ public class CensusController extends AbstractController {
 	
 	@Autowired
 	private CensusService censusService;
+	
+	@Autowired
+	private UserService userService;
 	// Constructors -----------------------------------------------------------
 
 	public CensusController() {
@@ -50,7 +59,85 @@ public class CensusController extends AbstractController {
 		return result;
 	}
 	
+	// Devuelve un censo en formato JSON ---------------------------------------------------------------	
 	
+	 @RequestMapping(value = "/json_one", method = RequestMethod.GET, produces="application/json")  
+	 public @ResponseBody  Census getCensus(@RequestParam int censusId) {  
+		 Census c = new Census();
+		 c = censusService.findOne(censusId);
+		 return c;
+	 }  
+	 
+	// Devuelve todos los censos en formato JSON ---------------------------------------------------------------	
+	 
+	 @RequestMapping(value ="/json_all", method = RequestMethod.GET, produces="application/json")    
+	 public @ResponseBody  Collection<Census> getAllCensus() {  
+		 Collection<Census> cs;
+		 cs = censusService.findAll();
+		 return cs;
+	 }  
+	 
+	 
+	 
+	 
+	// Add Users ----------------------------------------------------------------
+	@RequestMapping(value = "/addUser", method = RequestMethod.GET)
+	public ModelAndView addUser(@RequestParam int censusId, int userId) {
+		ModelAndView result = null;
+		try{
+			User u = userService.findOne(userId);
+			Census c = censusService.findOne(censusId);
+			Collection<User> users = c.getUsers();//Usuarios del censo a editar
+			Collection<Census> censues = u.getCensuses();//Censos del usuario a editar
+			
+			users.add(u);//Usuarios del censo a editar
+			censues.add(c);
+			
+			censusService.save(c);
+			userService.save(u);
+			
+			result = new ModelAndView("redirect:/census/edit.do?censusId="+censusId);
+			
+		}catch(Exception oops){
+			result = new ModelAndView("redirect:/census/edit.do?censusId="+censusId);
+			result.addObject("message", "No se pudo añadir el usuario");
+			oops.getStackTrace();
+		}
+		
+
+		return result;
+	}
+	
+	// Remove Users ----------------------------------------------------------------
+	@RequestMapping(value = "/removeUser", method = RequestMethod.GET)
+	public ModelAndView removeUser(@RequestParam int censusId, int userId) {
+		ModelAndView result = null;
+		try{
+			User u = userService.findOne(userId);
+			Census c = censusService.findOne(censusId);
+			Collection<User> users = c.getUsers();//Usuarios del censo a editar
+			Collection<Census> censues = u.getCensuses();//Censos del usuario a editar
+			
+			users.remove(u);//Usuarios del censo a editar
+			censues.remove(c);
+			
+			censusService.save(c);
+			userService.save(u);
+			
+			result = new ModelAndView("redirect:/census/edit.do?censusId="+censusId);
+			
+		}catch(Exception oops){
+			result = new ModelAndView("redirect:/census/edit.do?censusId="+censusId);
+			result.addObject("message", "No se pudo eliminar el usuario");
+			oops.getStackTrace();
+		}
+		
+
+		return result;
+	}
+
+	// Lista los censos del sistema  ---------------------------------------------------------------	
+
 	@RequestMapping("/list")
 	public ModelAndView list(){
 		String requestURI = "census/list.do";
@@ -67,6 +154,20 @@ public class CensusController extends AbstractController {
 		ModelAndView result;
 		Census census= censusService.findOne(censusId);
 		result=createEditModelAndView(census);
+
+		return result;
+	}
+	
+	// Editar un censo para añadir o quitar usuarios ---------------------------------------------------------------	
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int censusId) {
+		ModelAndView result = new ModelAndView("census/manage");
+		Census census= censusService.findOne(censusId);
+		Collection <User> users = userService.findAll();
+		result.addObject("users", users);
+		result.addObject("census", census);
+		
 
 		return result;
 	}
@@ -142,4 +243,5 @@ public class CensusController extends AbstractController {
 
 	}
 	
-}
+}	
+	

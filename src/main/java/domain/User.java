@@ -7,12 +7,16 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 
 @Entity
 @Access(AccessType.PROPERTY)
+@XmlRootElement(name="user")
 public class User extends DomainEntity{
 	
 	private String name;
@@ -24,8 +28,8 @@ public class User extends DomainEntity{
 	public User(){
 		
 	}
-
 	@NotBlank
+	@XmlElement(name="name")
 	public String getName() {
 		return name;
 	}
@@ -46,6 +50,7 @@ public class User extends DomainEntity{
 
 	@NotNull
 	@ManyToMany
+	@XmlTransient
 	public Collection<Census> getCensuses() {
 		return censuses;
 	}

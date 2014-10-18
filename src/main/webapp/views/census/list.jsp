@@ -38,3 +38,5 @@
 	
 	
 </display:table>
+<br/>
+<acme:cancel url="welcome/index.do" code="census.back"/>

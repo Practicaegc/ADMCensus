@@ -58,5 +58,119 @@
 	</bean>
 	-->
 	<!-- Other domain beans come here -->	
+	<bean id="Censo 1" class="domain.Census">
+		<property name="name" value="Censo 1" />
+		<property name="date" value="2012/11/01" />
+		<property name="users">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Censo 2" class="domain.Census">
+		<property name="name" value="Censo 2" />
+		<property name="date" value="2012/11/01" />
+		<property name="users">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Censo 3" class="domain.Census">
+		<property name="name" value="Censo 3" />
+		<property name="date" value="2012/11/01" />
+		<property name="users">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="Censo 4" class="domain.Census">
+		<property name="name" value="Censo 4" />
+		<property name="date" value="2012/11/01" />
+		<property name="users">
+			<list>
+			</list>
+		</property>
+	</bean>
 	
+	
+	<bean id="User 1" class="domain.User">
+		<property name="name" value="Pedro Jimenez" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="User 2" class="domain.User">
+		<property name="name" value="Maria Delgado" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 3" class="domain.User">
+		<property name="name" value="Jesus Salinas" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 4" class="domain.User">
+		<property name="name" value="Antonio Amador" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 5" class="domain.User">
+		<property name="name" value="Fran Delgado" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 6" class="domain.User">
+		<property name="name" value="Guio Fernandez de Bobadilla" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 7" class="domain.User">
+		<property name="name" value="David Alvarez" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 8" class="domain.User">
+		<property name="name" value="Javier Guisado" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 9" class="domain.User">
+		<property name="name" value="Jose Luis Garcia" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="User 10" class="domain.User">
+		<property name="name" value="Rafael Quesada" />
+		<property name="password" value="1234" />
+		<property name="censuses">
+			<list>
+			</list>
+		</property>
+	</bean>
 </beans>

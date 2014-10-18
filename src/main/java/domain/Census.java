@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
-
+import javax.xml.bind.annotation.*;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -17,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
+@XmlRootElement(name="census")
 @Access(AccessType.PROPERTY)
 public class Census extends DomainEntity{
 	
@@ -43,6 +44,7 @@ public class Census extends DomainEntity{
 	}
 
 	@NotBlank
+	@XmlElement
 	public String getName() {
 		return name;
 	}
@@ -54,6 +56,8 @@ public class Census extends DomainEntity{
 
 	@NotNull
 	@ManyToMany
+	@XmlElementWrapper(name="users")
+	@XmlElement(name="name")
 	public Collection<User> getUsers() {
 		return users;
 	}
